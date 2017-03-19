@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello jQuery</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0; 
+            padding: 0;
+        }
+        .fm{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			border: 2px solid black;
+			margin: 0 auto;
+            top: 40%;
+		}
+		</style>
+    </head>
+
+    <body>
+        <div class="fm">
+        	<form>
+            	Name:<input id="name" type="text" style="margin: 50px 5px auto"></input>
+            	<p style="color: red; font-size: 10px"></p>
+            	<button type="button" >Submit</button><!-- onclick="UserAction()" -->
+            </form>
+            <div id="data"></div>
+        </div>
+        <script>
+        $(document).ready(function(){
+        $.ajax({
+            url: "http://rest-service.guides.spring.io/greeting"
+        }).then(function(data) {
+        	$("button").click(function() {
+        		if($("#name").val()==""){
+        			$("p").html("Please put in name!");
+        		}
+        		else{
+        			alert(data.content+" "+$("#name").val());
+        			$("form").submit();
+        		}
+            });
+    	});
+    });
+        /*function UserAction() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://rest-service.guides.spring.io/greeting", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+            var response = JSON.parse(xhttp.responseText);
+            var temp=document.getElementById('name').value;
+            alert(response.content+" "+temp);
+        }*/
+    </script>
+    </body>  
+</html>
